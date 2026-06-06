@@ -19,6 +19,9 @@ jobs:
   run-alerts:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -35,3 +38,12 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python screener_alert.py
+
+      - name: Commit & Push Performance Report
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -f strategy_performance.csv ]; then
+            git add strategy_performance.csv
+            git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update strategy performance report" && git push)
+          fi
