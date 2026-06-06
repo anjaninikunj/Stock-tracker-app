@@ -128,11 +128,9 @@ def format_alert_message(stocks):
     total_stocks = len(stocks)
     
     message_lines = [
-        f"🚀 {header_time_str} | JYOTI, BUDHIYA Open≈Low 15 Mins",
+        f"🚀 {header_time_str} | BTST Open≈Low 15 Mins",
         "",
-        "Scanner: 52W High BO + Open≈Low",
-        "",
-        f"Time: {ist_time_str}",
+        "Scanner: JYOTI BUDHIYA 52W High BO + Open≈Low",
         "",
         f"Total Stocks: {total_stocks}",
         ""
