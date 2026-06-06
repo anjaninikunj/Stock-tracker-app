@@ -1,0 +1,37 @@
+name: Chartink Telegram Alerts
+
+on:
+  schedule:
+    # Schedule runs Monday to Friday only
+    # 09:30 IST -> 04:00 UTC
+    - cron: '0 4 * * 1-5'
+    # 11:00 IST -> 05:30 UTC
+    - cron: '30 5 * * 1-5'
+    # 13:00 IST -> 07:30 UTC
+    - cron: '30 7 * * 1-5'
+    # 15:15 IST -> 09:45 UTC
+    - cron: '45 9 * * 1-5'
+  
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache-dependency-path: '' # No dependencies to cache
+
+      - name: Run Chartink Alert Script
+        env:
+          # Reads from GitHub Repository Secrets. Fallbacks are configured in the script.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python screener_alert.py
