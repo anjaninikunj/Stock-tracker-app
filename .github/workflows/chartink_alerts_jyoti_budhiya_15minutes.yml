@@ -2,11 +2,8 @@ name: Chartink Jyoti Budhiya 15M Alerts
 
 on:
   schedule:
-    # Runs every 15 minutes from 09:30 AM IST to 03:15 PM IST (04:00 UTC to 09:45 UTC)
-    - cron: '*/15 4-9 * * 1-5'
-    
-    # Runs at 03:30 PM IST (10:00 AM UTC) to capture the market close candle
-    - cron: '0 10 * * 1-5'
+    # TEMPORARY TEST SCHEDULE: Runs every 15 minutes continuously
+    - cron: '*/15 * * * *'
   
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
@@ -41,5 +38,12 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -f strategy_performance.csv ]; then
             git add strategy_performance.csv
-            git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update strategy performance report" && git push)
+            if ! git diff --quiet || ! git diff --staged --quiet; then
+              git commit -m "chore: update strategy performance report"
+              for i in {1..5}; do
+                git pull --rebase origin main && git push origin main && break
+                echo "Conflict or push failed, retrying in 5 seconds..."
+                sleep 5
+              done
+            fi
           fi

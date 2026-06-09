@@ -22,21 +22,31 @@ def format_alert_message(stocks):
     message_lines = [
         f"🚀 {header_time_str} | BTST Open≈Low 15 Mins",
         "",
+        f"Total Stocks: {total_stocks}",
+        "",
         "Scanner: JYOTI BUDHIYA 52W High BO + Open≈Low",
         "",
-        f"Total Stocks: {total_stocks}",
-        ""
+        "Stocks:"
     ]
     
     if total_stocks == 0:
         message_lines.append(f"No stock found {stock_time_str}")
     else:
-        message_lines.append("Stocks:")
         for stock in stocks:
             # Prefer nsecode, fallback to name, then bsecode
             symbol = stock.get("nsecode") or stock.get("name") or stock.get("bsecode") or "UNKNOWN"
             symbol = str(symbol).strip().upper()
-            message_lines.append(f"• {symbol}")
+            
+            close_price = stock.get("close")
+            per_chg = stock.get("per_chg")
+            
+            close_str = f"{close_price:.2f}" if isinstance(close_price, (int, float)) else str(close_price)
+            if isinstance(per_chg, (int, float)):
+                per_chg_str = f"+{per_chg:.2f}%" if per_chg > 0 else f"{per_chg:.2f}%"
+            else:
+                per_chg_str = str(per_chg) if per_chg else ""
+                
+            message_lines.append(f"• {symbol} {close_str}  {per_chg_str}")
         
     return "\n".join(message_lines)
 
