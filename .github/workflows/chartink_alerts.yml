@@ -1,6 +1,9 @@
 name: Chartink Telegram Alerts
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # 09:30 AM IST -> 04:00 UTC (Offset to 04:05 UTC to avoid GitHub Actions congestion delay)
     - cron: '5 4 * * 1-5'
