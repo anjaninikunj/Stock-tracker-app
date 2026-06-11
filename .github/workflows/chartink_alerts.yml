@@ -1,21 +1,21 @@
 name: Chartink Telegram Alerts
 
 on:
-  schedule:
-    # 09:30 AM IST -> 04:00 UTC (Offset to 04:05 UTC to avoid GitHub Actions congestion delay)
-    - cron: '5 4 * * 1-5'
-    # 10:30 AM IST -> 05:00 UTC (Offset to 05:05 UTC)
-    - cron: '5 5 * * 1-5'
-    # 11:30 AM IST -> 06:00 UTC (Offset to 06:05 UTC)
-    - cron: '5 6 * * 1-5'
-    # 12:30 PM IST -> 07:00 UTC (Offset to 07:05 UTC)
-    - cron: '5 7 * * 1-5'
-    # 01:30 PM IST -> 08:00 UTC (Offset to 08:05 UTC)
-    - cron: '5 8 * * 1-5'
-    # 02:30 PM IST -> 09:00 UTC (Offset to 09:05 UTC)
-    - cron: '5 9 * * 1-5'
-    # 03:30 PM IST -> 10:00 UTC (Offset to 10:05 UTC)
-    - cron: '5 10 * * 1-5'
+#   schedule:
+#     # 09:30 AM IST -> 04:00 UTC (Offset to 04:05 UTC to avoid GitHub Actions congestion delay)
+#     - cron: '5 4 * * 1-5'
+#     # 10:30 AM IST -> 05:00 UTC (Offset to 05:05 UTC)
+#     - cron: '5 5 * * 1-5'
+#     # 11:30 AM IST -> 06:00 UTC (Offset to 06:05 UTC)
+#     - cron: '5 6 * * 1-5'
+#     # 12:30 PM IST -> 07:00 UTC (Offset to 07:05 UTC)
+#     - cron: '5 7 * * 1-5'
+#     # 01:30 PM IST -> 08:00 UTC (Offset to 08:05 UTC)
+#     - cron: '5 8 * * 1-5'
+#     # 02:30 PM IST -> 09:00 UTC (Offset to 09:05 UTC)
+#     - cron: '5 9 * * 1-5'
+#     # 03:30 PM IST -> 10:00 UTC (Offset to 10:05 UTC)
+#     - cron: '5 10 * * 1-5'
   
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
