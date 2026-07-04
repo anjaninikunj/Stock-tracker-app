@@ -21,8 +21,6 @@ def format_alert_message(stocks):
     message_lines = [
         "🚀 Codex Milega Hilega Weekly",
         "",
-        f"Time: {ist_time_str}",
-        "",
         f"Total Stocks: {total_stocks}",
         ""
     ]
