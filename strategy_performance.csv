@@ -249,7 +249,7 @@ Week Start,Strategy,Date Added,Stock Symbol,Entry Price,Weekend Price (Friday),S
 27-July-2026,Codex Milega Hilega Weekly,27-July-2026,DCI,287.85,-,OUT (Not in Strategy)
 27-July-2026,Jyoti Budhiya 15M Breakout,27-July-2026,IDFCFIRSTB,87.53,-,OUT (Not in Strategy)
 27-July-2026,Jyoti Budhiya 15M Breakout,27-July-2026,LALPATHLAB,1881.8,-,OUT (Not in Strategy)
-27-July-2026,Jyoti Budhiya 15M Breakout,27-July-2026,LAURUSLABS,1660.6,-,IN (in strategy still)
+27-July-2026,Jyoti Budhiya 15M Breakout,27-July-2026,LAURUSLABS,1660.6,-,OUT (Not in Strategy)
 27-July-2026,Jyoti Budhiya 15M Breakout,27-July-2026,UNITDSPR,1496.2,-,OUT (Not in Strategy)
 27-July-2026,Codex Milega Hilega Weekly,27-July-2026,PYRAMID,185.99,-,IN (in strategy still)
 27-July-2026,Codex Milega Hilega Weekly,27-July-2026,SURANASOL,28.54,-,OUT (Not in Strategy)
@@ -264,3 +264,4 @@ Week Start,Strategy,Date Added,Stock Symbol,Entry Price,Weekend Price (Friday),S
 27-July-2026,Codex Milega Hilega Weekly,29-July-2026,TI,468.45,-,IN (in strategy still)
 27-July-2026,Codex Milega Hilega Weekly,29-July-2026,GAEL,166.5,-,IN (in strategy still)
 27-July-2026,Jyoti Budhiya 15M Breakout,29-July-2026,DIVISLAB,7621.5,-,IN (in strategy still)
+27-July-2026,Jyoti Budhiya 15M Breakout,29-July-2026,LLOYDSME,2054.5,-,IN (in strategy still)
