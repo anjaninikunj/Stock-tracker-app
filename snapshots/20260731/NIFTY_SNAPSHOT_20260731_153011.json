@@ -1,7 +1,7 @@
 {
   "symbol": "NIFTY",
   "timestamp": "31-Jul-2026 15:30:11",
-  "systemExecutionTime": "01-Aug-2026 17:24:45",
+  "systemExecutionTime": "01-Aug-2026 12:24:17",
   "expiry": "04-Aug-2026",
   "spot": {
     "ltp": 24383.6,
@@ -29,7 +29,7 @@
     "totalPEChangeOI": 768785
   },
   "comparison": {
-    "previousSnapshot": "E:\\AI 2026\\chartink-telegram-alerts\\snapshots\\20260731\\NIFTY_SNAPSHOT_20260731_150000.json",
+    "previousSnapshot": "/home/runner/work/Stock-tracker-app/Stock-tracker-app/snapshots/20260731/NIFTY_SNAPSHOT_20260731_150000.json",
     "spotChangePoints": -7.6,
     "pcrChange": 0.0141,
     "sentiment": "BULLISH (Put Writing supporting from below)"
