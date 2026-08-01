@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.gemini/
+*.webp
+*.png
+.tempmediaStorage/
+strategy_performance.csv

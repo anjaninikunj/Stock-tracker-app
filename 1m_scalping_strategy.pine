@@ -1,0 +1,361 @@
+//@version=5
+indicator("1 Minute Scalping Strategy (Touch & Turn)", overlay=true, max_boxes_count=500, max_lines_count=500, max_labels_count=500)
+
+// ==========================================
+// 1. INPUT PARAMETERS & STYLE CONFIGURATION
+// ==========================================
+session_hours = input.session("0915-1530", "Market Hours (IST)", group="Session Settings")
+timezone      = input.string("Asia/Kolkata", "Timezone", group="Session Settings")
+atr_length    = input.int(14, "Daily ATR Length", group="Volatility Settings")
+
+// Styling & Colors
+window_color   = input.color(color.new(#2196F3, 94), "Entry Window Chart Highlight", group="Visual Styling")
+or_line_color  = input.color(color.new(#FF9800, 30), "Opening Range Boundary Color", group="Visual Styling")
+entry_color    = input.color(#2196F3, "Entry Level Line Color", group="Visual Styling")
+tp_color       = input.color(#4CAF50, "Take Profit Level Line Color", group="Visual Styling")
+sl_color       = input.color(#F44336, "Stop Loss Level Line Color", group="Visual Styling")
+
+// Mobile Dashboard Settings
+show_table     = input.bool(true, "Show Dashboard Table", group="Mobile Dashboard")
+size_input     = input.string(defval="Small", title="Table Text Size", options=["Tiny", "Small", "Normal"], group="Mobile Dashboard")
+table_bg_color = input.color(color.new(#000000, 10), "Table Background Color", group="Mobile Dashboard")
+table_border   = input.color(color.new(#363C4E, 0), "Table Border Color", group="Mobile Dashboard")
+text_color     = input.color(#E0E3EB, "Table Text Color", group="Mobile Dashboard")
+header_bg      = input.color(#1E222D, "Table Header BG Color", group="Mobile Dashboard")
+
+// Map Table Size
+table_size = size_input == "Tiny" ? size.tiny : (size_input == "Small" ? size.small : size.normal)
+
+// ==========================================
+// 2. DYNAMIC SESSION & RANGE CALCULATIONS
+// ==========================================
+// Check if the current bar is inside the trading session
+in_session = not na(time(timeframe.period, session_hours, timezone))
+
+// Detect day changes (using calendar day for maximum reliability)
+is_new_day = ta.change(dayofmonth) != 0 or ta.change(month) != 0 or ta.change(year) != 0 or barstate.isfirst
+
+// Historical Daily ATR Calculation
+daily_atr = request.security(syminfo.tickerid, "D", ta.atr(atr_length)[1], barmerge.gaps_off, barmerge.lookahead_off)
+
+// Reset state at the start of a new day
+var float or_high = na
+var float or_low = na
+var float or_open = na
+var float or_close = na
+var int session_start_time = na
+var int session_start_bar = na
+
+var float final_or_high = na
+var float final_or_low = na
+var float final_or_open = na
+var float final_or_close = na
+var bool is_valid_setup = false
+
+var float entry_price = na
+var float tp_price = na
+var float sl_price = na
+var string trade_dir = "None"
+
+// Line/Box/Label Persistent objects for current day
+var box range_box = na
+var line high_line = na
+var label high_label = na
+var line low_line = na
+var label low_label = na
+var line mid_line = na
+var label mid_label = na
+var line fib_382 = na
+var label fib_382_label = na
+var line fib_618 = na
+var label fib_618_label = na
+var line entry_line = na
+var label entry_label = na
+var line tp_line = na
+var label tp_label = na
+var line sl_line = na
+var label sl_label = na
+
+if is_new_day
+    or_high := na
+    or_low := na
+    or_open := na
+    or_close := na
+    session_start_time := na
+    session_start_bar := na
+    final_or_high := na
+    final_or_low := na
+    final_or_open := na
+    final_or_close := na
+    is_valid_setup := false
+    entry_price := na
+    tp_price := na
+    sl_price := na
+    trade_dir := "None"
+    
+    // Reset object pointers (old ones stay drawn, new day creates new lines)
+    range_box := na
+    high_line := na
+    high_label := na
+    low_line := na
+    low_label := na
+    mid_line := na
+    mid_label := na
+    fib_382 := na
+    fib_382_label := na
+    fib_618 := na
+    fib_618_label := na
+    entry_line := na
+    entry_label := na
+    tp_line := na
+    tp_label := na
+    sl_line := na
+    sl_label := na
+
+// Initialize session start timestamp and bar index
+if in_session and na(session_start_time)
+    session_start_time := time
+    session_start_bar := bar_index
+    or_high := high
+    or_low := low
+    or_open := open
+    or_close := close
+
+// Opening Range is active during the first 15 minutes of the session (e.g., 09:15 - 09:30 AM)
+is_opening_range = in_session and not na(session_start_time) and (time < session_start_time + 15 * 60 * 1000)
+
+if is_opening_range
+    or_high := math.max(nz(or_high, high), high)
+    or_low := math.min(nz(or_low, low), low)
+    or_close := close
+
+// Post-Opening Range (active starting after 15 minutes from open, i.e., 09:30 AM onwards)
+is_post_opening_range = in_session and not na(session_start_time) and (time >= session_start_time + 15 * 60 * 1000)
+
+// Lock in range values and calculate levels at exactly 09:30 AM
+is_transition = is_post_opening_range and (na(final_or_high) or ta.change(is_post_opening_range))
+
+// Volatility Calculation helpers
+or_range = not na(final_or_high) ? (final_or_high - final_or_low) : (or_high - or_low)
+atr_threshold = not na(daily_atr) ? daily_atr * 0.25 : 0.0
+
+if is_transition
+    final_or_high := or_high
+    final_or_low := or_low
+    final_or_open := or_open
+    final_or_close := or_close
+    
+    // Check setup validity
+    is_valid_setup := (or_range >= atr_threshold)
+    
+    // Determine trade setup levels
+    if is_valid_setup
+        if final_or_close > final_or_open // Green opening candle -> Short at High
+            trade_dir := "Short"
+            entry_price := final_or_high
+            tp_price := final_or_high - 0.382 * or_range // Target 61.8% level
+            sl_price := final_or_high + 0.191 * or_range // 2:1 RR Stop Loss
+        else if final_or_close < final_or_open // Red opening candle -> Long at Low
+            trade_dir := "Long"
+            entry_price := final_or_low
+            tp_price := final_or_low + 0.382 * or_range // Target 38.2% level
+            sl_price := final_or_low - 0.191 * or_range // 2:1 RR Stop Loss
+
+    // ----------------------------------------------------
+    // Create Visual Drawing Objects connecting to 09:15 AM
+    // ----------------------------------------------------
+    // 1. Shaded range box channel
+    range_box := box.new(left=session_start_bar, top=final_or_high, right=bar_index, bottom=final_or_low, border_color=or_line_color, border_style=line.style_solid, border_width=1, bgcolor=color.new(or_line_color, 95))
+    
+    // 2. High, Low, and 50% lines
+    high_line  := line.new(x1=session_start_bar, y1=final_or_high, x2=bar_index, y2=final_or_high, color=or_line_color, width=1, style=line.style_solid)
+    high_label := label.new(x=bar_index, y=final_or_high, text="High (100.0%)", textcolor=or_line_color, size=table_size, style=label.style_none, yloc=yloc.price)
+    
+    low_line   := line.new(x1=session_start_bar, y1=final_or_low, x2=bar_index, y2=final_or_low, color=or_line_color, width=1, style=line.style_solid)
+    low_label  := label.new(x=bar_index, y=final_or_low, text="Low (0.0%)", textcolor=or_line_color, size=table_size, style=label.style_none, yloc=yloc.price)
+                          
+    mid_line   := line.new(x1=session_start_bar, y1=(final_or_high + final_or_low)/2, x2=bar_index, y2=(final_or_high + final_or_low)/2, color=color.new(or_line_color, 40), width=1, style=line.style_dashed)
+    mid_label  := label.new(x=bar_index, y=(final_or_high + final_or_low)/2, text="Mid (50.0%)", textcolor=color.new(or_line_color, 30), size=table_size, style=label.style_none, yloc=yloc.price)
+    
+    // 3. Fibonacci Retracement Levels (38.2% and 61.8%)
+    val_382 = final_or_low + 0.382 * or_range
+    val_618 = final_or_low + 0.618 * or_range
+    
+    fib_382 := line.new(x1=session_start_bar, y1=val_382, x2=bar_index, y2=val_382, color=color.new(color.gray, 40), width=1, style=line.style_dashed)
+    fib_382_label := label.new(x=bar_index, y=val_382, text="Fib 38.2%", textcolor=color.gray, size=table_size, style=label.style_none, yloc=yloc.price)
+                        
+    fib_618 := line.new(x1=session_start_bar, y1=val_618, x2=bar_index, y2=val_618, color=color.new(color.gray, 40), width=1, style=line.style_dashed)
+    fib_618_label := label.new(x=bar_index, y=val_618, text="Fib 61.8%", textcolor=color.gray, size=table_size, style=label.style_none, yloc=yloc.price)
+
+    // 4. Trade Entry, TP, and SL Lines (if setup is valid)
+    if is_valid_setup
+        entry_line  := line.new(x1=session_start_bar, y1=entry_price, x2=bar_index, y2=entry_price, color=entry_color, width=2, style=line.style_solid)
+        entry_label := label.new(x=bar_index, y=entry_price, text="Entry Limit", textcolor=entry_color, size=table_size, style=label.style_none, yloc=yloc.price)
+        
+        tp_line     := line.new(x1=session_start_bar, y1=tp_price, x2=bar_index, y2=tp_price, color=tp_color, width=2, style=line.style_solid)
+        tp_label    := label.new(x=bar_index, y=tp_price, text="Target (TP)", textcolor=tp_color, size=table_size, style=label.style_none, yloc=yloc.price)
+        
+        sl_line     := line.new(x1=session_start_bar, y1=sl_price, x2=bar_index, y2=sl_price, color=sl_color, width=2, style=line.style_solid)
+        sl_label    := label.new(x=bar_index, y=sl_price, text="Stop Loss (SL)", textcolor=sl_color, size=table_size, style=label.style_none, yloc=yloc.price)
+
+// Extend Range Box and Lines continuously to current bar index during trading session
+if in_session and not na(final_or_high)
+    box.set_right(range_box, bar_index)
+    
+    line.set_x2(high_line, bar_index)
+    label.set_x(high_label, bar_index)
+    
+    line.set_x2(low_line, bar_index)
+    label.set_x(low_label, bar_index)
+    
+    line.set_x2(mid_line, bar_index)
+    label.set_x(mid_label, bar_index)
+    
+    line.set_x2(fib_382, bar_index)
+    label.set_x(fib_382_label, bar_index)
+    
+    line.set_x2(fib_618, bar_index)
+    label.set_x(fib_618_label, bar_index)
+    
+    if is_valid_setup
+        line.set_x2(entry_line, bar_index)
+        label.set_x(entry_label, bar_index)
+        
+        line.set_x2(tp_line, bar_index)
+        label.set_x(tp_label, bar_index)
+        
+        line.set_x2(sl_line, bar_index)
+        label.set_x(sl_label, bar_index)
+
+// Active Entry Window (first 90 minutes from market open, i.e., 09:30 - 10:45 AM)
+is_entry_window = in_session and not na(session_start_time) and (time >= session_start_time + 15 * 60 * 1000) and (time < session_start_time + 90 * 60 * 1000)
+
+// Highlight the active 90-minute entry window on the chart
+bgcolor(is_entry_window and is_valid_setup ? window_color : na, title="90-Min Entry Window Highlight")
+
+// ==========================================
+// 3. CANDLESTICK PATTERN DETECTION (1-MINUTE / MULTI)
+// ==========================================
+c_range = high - low
+body    = math.abs(close - open)
+l_shadow = math.min(open, close) - low
+u_shadow = high - math.max(open, close)
+
+// Detect Hammer (lower shadow > 1.5x body and small upper shadow)
+is_hammer = l_shadow >= 1.5 * body and u_shadow <= 0.2 * c_range and body > 0
+
+// Detect Inverted Hammer / Shooting Star (upper shadow > 1.5x body and small lower shadow)
+is_inverted_hammer = u_shadow >= 1.5 * body and l_shadow <= 0.2 * c_range and body > 0
+
+// Detect Engulfing Patterns
+is_bullish_engulfing = close[1] < open[1] and close > open and open <= close[1] and close >= open[1] and (close - open) > (open[1] - close[1])
+is_bearish_engulfing = close[1] > open[1] and close < open and open >= close[1] and close <= open[1] and (open - close) > (close[1] - open[1])
+
+// Detect Doji (body size is less than 10% of total candle range)
+is_doji = body <= 0.1 * c_range and c_range > 0
+
+// String description of current candle pattern
+current_pattern = "None"
+if is_hammer
+    current_pattern := "Hammer 🔨"
+else if is_inverted_hammer
+    current_pattern := "Inv Hammer 🏹"
+else if is_bullish_engulfing
+    current_pattern := "Bull Engulf 📈"
+else if is_bearish_engulfing
+    current_pattern := "Bear Engulf 📉"
+else if is_doji
+    current_pattern := "Doji ➕"
+else if close > open
+    current_pattern := "Bullish 🟢"
+else if close < open
+    current_pattern := "Bearish 🔴"
+
+// ==========================================
+// 4. SIGNALS & PATTERN HIGHLIGHTING
+// ==========================================
+// 1. Long Entry Trigger (at/below low of range, inside window, with bullish candle/hammer/engulfing)
+is_long_trigger = is_entry_window and trade_dir == "Long" and (low <= entry_price) and (is_hammer or is_bullish_engulfing or close > open)
+
+// 2. Short Entry Trigger (at/above high of range, inside window, with bearish candle/inverted hammer/engulfing)
+is_short_trigger = is_entry_window and trade_dir == "Short" and (high >= entry_price) and (is_inverted_hammer or is_bearish_engulfing or close < open)
+
+// Only show normal patterns if the candle is outside the opening range block (high > final_or_high or low < final_or_low)
+is_outside_block = is_post_opening_range and not na(final_or_high) and (high > final_or_high or low < final_or_low)
+
+// Highlight all key candlestick patterns and trade triggers on the chart
+if in_session
+    if is_long_trigger
+        label.new(x=bar_index, y=low, text="⭐ ENTRY LONG ⭐\n" + current_pattern, color=color.green, textcolor=color.white, style=label.style_label_up, yloc=yloc.belowbar, size=size.normal)
+    else if is_short_trigger
+        label.new(x=bar_index, y=high, text="⭐ ENTRY SHORT ⭐\n" + current_pattern, color=color.red, textcolor=color.white, style=label.style_label_down, yloc=yloc.abovebar, size=size.normal)
+    else if is_hammer and is_outside_block
+        label.new(x=bar_index, y=low, text="Hammer 🔨", color=color.new(color.green, 50), textcolor=color.white, style=label.style_label_up, yloc=yloc.belowbar, size=size.small)
+    else if is_bullish_engulfing and is_outside_block
+        label.new(x=bar_index, y=low, text="Bull Engulf 📈", color=color.new(color.green, 50), textcolor=color.white, style=label.style_label_up, yloc=yloc.belowbar, size=size.small)
+    else if is_inverted_hammer and is_outside_block
+        label.new(x=bar_index, y=high, text="Shooting Star 🏹", color=color.new(color.red, 50), textcolor=color.white, style=label.style_label_down, yloc=yloc.abovebar, size=size.small)
+    else if is_bearish_engulfing and is_outside_block
+        label.new(x=bar_index, y=high, text="Bear Engulf 📉", color=color.new(color.red, 50), textcolor=color.white, style=label.style_label_down, yloc=yloc.abovebar, size=size.small)
+
+// Shading the background of the trigger bar
+bgcolor(is_long_trigger ? color.new(color.green, 90) : (is_short_trigger ? color.new(color.red, 90) : na), title="Trigger Bar Highlight")
+
+// ==========================================
+// 5. MOBILE-OPTIMIZED DASHBOARD TABLE
+// ==========================================
+// Create indicator dashboard table
+var table info_table = table.new(position.top_right, 2, 11, bgcolor=table_bg_color, border_color=table_border, border_width=1)
+
+if barstate.islast and show_table
+    // Header row
+    table.cell(info_table, 0, 0, "Touch & Turn", bgcolor=header_bg, text_color=text_color, text_size=table_size, text_font_family=font.family_monospace)
+    table.cell(info_table, 1, 0, "Scalper", bgcolor=header_bg, text_color=text_color, text_size=table_size, text_font_family=font.family_monospace)
+    
+    // Status Row
+    status_text = "WAITING"
+    status_bg   = color.new(color.yellow, 30)
+    if is_post_opening_range
+        status_text := is_valid_setup ? "VALID SETUP" : "INVALID"
+        status_bg   := is_valid_setup ? color.new(color.green, 30) : color.new(color.red, 30)
+    table.cell(info_table, 0, 1, "Setup Status", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 1, status_text, bgcolor=status_bg, text_color=color.black, text_size=table_size, text_font_family=font.family_monospace)
+    
+    // ATR Value Row
+    table.cell(info_table, 0, 2, "Daily ATR (14)", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 2, not na(daily_atr) ? str.tostring(daily_atr, "#.##") : "Loading...", text_color=text_color, text_size=table_size)
+    
+    // 25% ATR Target Row
+    table.cell(info_table, 0, 3, "25% ATR Min", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 3, str.tostring(atr_threshold, "#.##"), text_color=text_color, text_size=table_size)
+    
+    // OR Range Row
+    table.cell(info_table, 0, 4, "15m OR Range", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 4, str.tostring(or_range, "#.##"), text_color=text_color, text_size=table_size)
+    
+    // Trade Direction Row
+    table.cell(info_table, 0, 5, "Trade Type", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 5, trade_dir, text_color=trade_dir == "Long" ? color.green : (trade_dir == "Short" ? color.red : text_color), text_size=table_size)
+    
+    // EP Row
+    table.cell(info_table, 0, 6, "EP", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 6, not na(entry_price) ? str.tostring(entry_price, "#.##") : "-", text_color=text_color, text_size=table_size)
+    
+    // TP Price Row
+    table.cell(info_table, 0, 7, "Target Price", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 7, not na(tp_price) ? str.tostring(tp_price, "#.##") : "-", text_color=text_color, text_size=table_size)
+    
+    // SL Row
+    table.cell(info_table, 0, 8, "SL", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 8, not na(sl_price) ? str.tostring(sl_price, "#.##") : "-", text_color=text_color, text_size=table_size)
+    
+    // Candle Time Row (displays the timestamp of the latest candle)
+    candle_time_str = str.format_time(time, "HH:mm", timezone)
+    table.cell(info_table, 0, 9, "Candle Time", bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 9, candle_time_str, text_color=text_color, text_size=table_size)
+    
+    // Candlestick Pattern Row
+    tf_str = timeframe.isminutes ? str.tostring(timeframe.multiplier) + "m" : timeframe.period
+    pattern_label = tf_str + " Pattern"
+    table.cell(info_table, 0, 10, pattern_label, bgcolor=header_bg, text_color=text_color, text_size=table_size)
+    table.cell(info_table, 1, 10, current_pattern, text_color=text_color, text_size=table_size)

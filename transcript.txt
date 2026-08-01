@@ -1,0 +1,951 @@
+0:00
+Today I'm going to show you an extremely
+0:03
+reliable,
+0:04
+repetitable, and mechanical scalping
+0:07
+strategy. It's called the touch and turn
+0:10
+scalper, and it takes advantage of the
+0:12
+first 90 minutes of the market open. My
+0:15
+name is Carl and I've been trading for
+0:17
+over 20 years. already when I was 19
+0:19
+years old competing in the Swedish
+0:21
+championship for stock trading. The
+0:23
+winner who beat me and who later became
+0:26
+my trading mentor, he was using this
+0:28
+exact strategy trading Netflix. And in
+0:31
+today's video, I will present it the
+0:33
+same way that he showed me back in 2010
+0:35
+and the same way that I have taught
+0:37
+hundreds of traders since. We've all
+0:40
+used it day in and day out to make solid
+0:42
+trades for years. I'm going to show you
+0:44
+how to trade this touch and turn scalper
+0:46
+in just three simple steps. Then after
+0:48
+explaining the three steps, I will take
+0:50
+that process and I will trade it in the
+0:52
+live market so that you know how to
+0:54
+apply it. Let's get started. I just love
+0:57
+this strategy and most people that I
+0:58
+show it to like it as well because it's
+1:01
+mechanical, it's straightforward and it
+1:03
+doesn't require any complex structure.
+1:06
+Step one is to Fibonaccify the opening
+1:09
+range.
+1:12
+So, first open whatever asset you are
+Step 1: Fibonacci the Opening Range
+1:15
+trading on a 15minute chart. For
+1:18
+nostalgic reasons, I will um use Netflix
+1:22
+just as my mentor did back in 2010. It
+1:25
+works with any assets. Just make sure
+1:26
+it's a 15-minute chart. From there, let
+1:29
+the first 15 minutes of the market open
+1:31
+pass, allowing that opening candle to
+1:33
+completely close. Once that candle has
+1:36
+closed, use the Fibonacci retracement
+1:39
+drawing tool. So what we want to do here
+1:41
+is to draw the Fibonacci levels from the
+1:43
+highest price point that we see. So this
+1:45
+very top of the week down to the lowest
+1:49
+price point that we see, which is the
+1:51
+very bottom of this week. And then we
+1:54
+extend it into the future. And that's
+1:56
+all for step one. I told you it was
+1:59
+going to be simple. So we now got three
+2:02
+different price levels within the range
+2:03
+here. For this strategy though, we're
+2:05
+only interested in the 38.2 2 level and
+2:09
+the 61.8 level. These are the target
+2:12
+profit levels that we will use in this
+2:14
+strategy. But for now, this is all you
+2:16
+need to do. Just draw it from the high
+2:18
+to low range and extend it into the
+2:21
+future. Now, let's move on to step
+2:22
+number two, which is a crucial step and
+2:24
+a step that I have in all of my opening
+2:26
+range strategies. The step is to confirm
+2:28
+that the opening candle is what we call
+Step 2: Confirm the Liquidity Candle (ATR Method)
+2:31
+a liquidity candle.
+2:37
+So most likely it is and I will explain
+2:40
+why soon. And if it is, we are on to
+2:44
+something special.
+2:46
+A liquidity candle is any fast
+2:48
+aggressive candle moving up or down. The
+2:51
+direction doesn't matter. It's quick,
+2:53
+it's forceful, and it moves decisively
+2:55
+in one direction. But it's more than
+2:57
+just a candle. It's actually an
+2:59
+emotional event. And that is where the
+3:01
+edge is. When traders all around the
+3:03
+world see these, their very first
+3:05
+instinct is to chase this move afraid
+3:08
+that they will miss out on this trading
+3:10
+opportunity. And that's exactly what
+3:12
+these candles are designed to do, to
+3:14
+pull in inexperienced retail traders to
+3:17
+create liquidity necessary for the
+3:19
+larger institutions to get in and out of
+3:22
+their big positions. So this move
+3:24
+actually needs to happen for the larger
+3:25
+institutions to get in and out and that
+3:27
+is why you will see them almost every
+3:30
+day. This often involves an aggressive
+3:33
+push of the price in one direction to
+3:35
+trigger clusters of stop- losses from us
+3:38
+retail traders. And those triggered
+3:40
+stop- losses will generate the liquidity
+3:43
+necessary for the institutions to fill
+3:45
+their positions without dramatically
+3:47
+moving the price. So without this
+3:50
+engineer liquidity, big players couldn't
+3:52
+trade in size without negatively
+3:55
+impacting their entry and exit levels.
+3:57
+The best explanation for this comes from
+4:00
+our late Dr. David Paul.
+4:02
+The best trades occur after the masses
+4:05
+have been stopped out. And that's
+4:07
+because the big fellas up there. They
+4:09
+can't press the Wii button and get in
+4:11
+because there's just not enough
+4:14
+liquidity there for them to get in in
+4:16
+size. So they have to in fact engineer
+4:19
+100,000 guys like you, sir, pull you one
+4:23
+way, your stop loss gets hit. that in
+4:26
+fact sets off a sea of liquidity for
+4:28
+them to get in.
+4:29
+So yeah, these candles they are
+4:30
+engineered and that is why we can also
+4:33
+call them manipulation candles. They
+4:35
+happen daily allowing those larger
+4:37
+institutions to enter and exit their
+4:39
+trades. So the most important thing to
+4:41
+understand how this touch and turn
+4:42
+scalper is taking advantage of this very
+4:45
+phenomenon is that whenever you see
+4:48
+those candles most of the time the
+4:51
+candle will be reversed. And right
+4:53
+there, that's the strategy. That is the
+4:55
+edge that we are using. Now, just in
+4:58
+case there's any doubt in your mind
+4:59
+whether or not what you're looking at is
+5:01
+or is not a manipulation candle, let me
+5:03
+show you an easy way to figure that out.
+5:06
+So, what we want to do is to switch to
+5:07
+the daily chart of the asset that we're
+5:09
+trading and add the average true range
+5:12
+indicator. You don't have to make any
+5:14
+adjustments to it. Just use the default
+5:15
+setting of 14 days. This indicator will
+5:19
+give us a numerical value and in this
+5:21
+case for Netflix it's three bucks 53.
+5:26
+I'll just go ahead and write that down.
+5:32
+So what does this number represent?
+5:35
+Well, it represents the average range of
+5:39
+Netflix for the last 14 days. So, either
+5:42
+up 3.53 bucks or down 3.53 bucks on an
+5:46
+average day. 3.53. 3.53.
+5:50
+Why is it so hard to say? 3.53.
+5:56
+So, the opening trading range is one of
+5:59
+the most important parameters for us
+6:01
+being successful as traders, whether or
+6:03
+not you use this touch and turn strategy
+6:05
+or something else. And here's what we
+6:07
+want to determine. So, back on the
+6:09
+15-minute chart, if the size of the
+6:12
+candle that we boxed in is 25% or more
+6:15
+of that daily range, then it is a
+6:18
+manipulation candle. So, here's the
+6:21
+basic math to figure that out. So, we
+6:23
+take our 3.53 bucks, right? And we
+6:26
+multiply it with 25%, which gets you 88.
+6:31
+So if the high of that candle to the low
+6:34
+of that candle exceeds 88 cents then it
+6:37
+is a manipulation candle. So you'll see
+6:41
+that the very low of this candle is
+6:45
+93.24 24 bucks and the very high is 94.7
+6:51
+bucks and that is around 1.5 bucks which
+6:56
+is well outside that 88 cent range. So
+7:01
+this is definitely a manipulation
+7:03
+candle. So that wraps up step number two
+7:06
+which also was pretty simple. Right now
+Step 3: Dialing in the Perfect Limit Order
+7:08
+let's move on to step number three which
+7:10
+is to make the perfect trade for this
+7:13
+setup. And that's going to be pretty
+7:16
+simple, too.
+7:18
+So, we're going to go back to that
+7:20
+15inut chart and we are going to move it
+7:23
+to a smaller time frame. So, for this
+7:25
+strategy, I prefer to use the one minute
+7:28
+time frame and that's what I'm going to
+7:31
+continue to use in the rest of this
+7:33
+demonstration. So, this is how the
+7:34
+15minut opening range looks like on a
+7:37
+one minute time frame. So, what we want
+7:39
+to do here is to place the limit order
+7:40
+at the edge of the range. A limit order
+7:42
+is an order that you place to instruct
+7:44
+your trading software to enter a trade
+7:46
+only when the price reaches that
+7:49
+specific level. And as the manipulation
+7:51
+candle was negative with a high chance
+7:53
+of reversing, I want to place a limit
+7:56
+order to go long at the low of the
+7:59
+range. If the manipulation candle was
+8:01
+positive, I would instead place a limit
+8:03
+order to go short and I would place it
+8:05
+at the high of the range. The reason
+8:07
+that this strategy is called a touch and
+8:08
+turn is because what usually happens
+8:10
+when we have had a confirmed liquidity
+8:12
+candle open is that the price will at
+8:15
+least one more time touch the low and
+8:18
+then turn.
+8:20
+So what we want to do here is placing a
+8:22
+long limit order and we are placing it
+8:24
+here. And then what we want to do is to
+8:26
+set a target profit level to the 38.2
+8:30
+Fibonacci level. So this is a level that
+8:32
+the price usually goes back to whenever
+8:34
+we have a touch and turn. And then what
+8:36
+I want to do is to set the stop-loss
+8:38
+level. And I want to set it so that we
+8:40
+have a 2:1 riskreward ratio. So this
+8:43
+means that we want the target profit to
+8:45
+be two times bigger than the stop- loss.
+8:47
+And the target profit here is uh 56
+8:51
+cents which means that our stop loss
+8:53
+should be uh half of that which is 28
+8:57
+cents which would be uh right here. So
+8:59
+our trade is set. We have set the limit
+9:01
+order. We have set the target profit and
+9:03
+we have set the stop loss. Uh let's see
+9:05
+how it plays out. So the price is
+9:07
+actually going down to the limit order
+9:09
+already in the next minute. So now we
+9:11
+are in the long trade. Let's uh fast
+9:14
+forward and see what happens. So we're
+9:16
+actually touching the floor of the range
+9:18
+here. And we're touching it one, two,
+9:21
+three, four, five more times before the
+9:25
+price eventually turns and we reach our
+9:28
+target profit here. And this is a cherry
+9:30
+picked. So if we look back, we have this
+9:32
+pattern here too. So, we have a positive
+9:34
+opening. We use the Fibonacci levels.
+9:38
+So, we're entering the short trade here
+9:41
+and then we're overextending the ceiling
+9:43
+a little bit, but with the stop loss
+9:46
+here, we're fine. And then we hit the
+9:49
+target profit. So, again, a perfect
+9:50
+trade. So, the day before that, uh, we
+9:54
+make no trade because we only enter
+9:56
+trades in the opposite direction of the
+10:00
+direction of the manipulation candle.
+10:01
+Let's go to the previous day. So, here
+10:04
+we have a positive opening. I'm going to
+10:07
+draw up the Fibonacci levels.
+10:10
+So, we're placing the short limit order
+10:12
+here. We enter the short trade and then
+10:15
+we reach the to profit just uh minutes
+10:18
+later. So, this is a a classic touch and
+10:20
+turn. I wanted to show you a losing
+10:22
+trade as well. And I actually had to
+10:25
+scroll all the way back to December 15th
+10:28
+to find one. So, here's a losing trade.
+10:30
+We have the opening range here. Here we
+10:32
+enter the trade when the price touches
+10:34
+the range floor, but it never turns
+10:37
+around. So, we're actually breaking out
+10:39
+of the range and we reach the stop-loss
+10:42
+here. So, that's like one loss in the
+10:45
+whole of December. I mean, this
+10:47
+strategy, it works great and it's been
+10:50
+working for decades. It has worked so
+10:52
+well in fact that I decided to build a
+10:54
+trading bot out of it so that I can just
+10:56
+let it trade this touch and turn scalper
+10:58
+on any index on any stock at any time
+11:01
+and I'm going to give it to you. It's
+11:04
+free but in return maybe you could
+11:06
+scroll down and give this video a thumbs
+11:08
+up. I appreciate it. So I'm going to
+11:11
+trade this strategy in a live market.
+11:12
+But before we do that let's go through
+11:14
+these three steps once again make them a
+Recap of the Three steps
+11:16
+little bit clearer. So first we wait for
+11:19
+the 15minute candle to close. So in this
+11:21
+example it's a red negative opening
+11:24
+candle. And when that's done we do the
+11:26
+first step which is to Fibonaccriy this
+11:28
+opening range into the future so that we
+11:30
+get a clear visual of the opening range
+11:32
+and the target profit level.
+11:43
+So that's step one. Step two is to
+11:45
+confirm that this is a liquidity candle.
+11:51
+Again, you do that by taking the average
+11:54
+true range for the last 14 days and
+11:56
+confirming that the range of this candle
+11:59
+is at least 25% of that. If we can
+12:02
+confirm that, then we move on to the
+12:04
+third and last step, which is to set up
+12:06
+the perfect trade. So, we do that by
+12:08
+going to the one minute time frame and
+12:10
+we are placing a limit order. So, we're
+12:12
+going to place a limit order that is
+12:14
+going long and we're going to place it
+12:17
+at the low of the range. And we do that
+12:20
+because the manipulation candle was red.
+12:22
+So, we're placing the long limit order
+12:24
+here.
+12:27
+And then we want to set the target
+12:29
+profit level to the 38.2
+12:32
+Fibonacci level.
+12:37
+And then we set the stop loss to be half
+12:41
+of the target profit level. So half of
+12:43
+this range.
+12:47
+Okay. So now we have set up the perfect
+12:49
+trade. We have the limit order level. We
+12:51
+have the takerit level. And we have the
+12:53
+stop-loss level. And that's the three
+12:55
+steps. That's all we need to do. So let
+12:57
+me show you what usually happens after
+12:59
+50-minut opening range. The price go up
+13:01
+for a bit, maybe for 3 minutes, and then
+13:04
+we start going down again.
+13:06
+So what usually happens is that the
+13:09
+price will do a touch and turn again at
+13:12
+the bottom of the range. The price goes
+13:13
+down, we touch here and the limit order
+13:16
+is executed
+13:19
+and then reach the target profit level.
+13:24
+And why do we usually reach the target
+13:27
+profit level? Why does this strategy
+13:29
+have such a high win rate? Well, because
+Why the Strategy Has a High Win Rate (4 Market Scenarios)
+13:31
+there are only four possible scenarios
+13:33
+where the price can go every day. And
+13:35
+with three of these scenarios, the price
+13:38
+will pass through our target profit
+13:40
+level. So scenario one is that we push
+13:42
+through the range. But before we do
+13:44
+that, in most cases, the price will go
+13:47
+up to collect strength at least once
+13:50
+before pushing through. Scenario two is
+13:52
+that we will stay within the range the
+13:54
+whole day, which means that price will
+13:56
+bounce back and forth within the range,
+13:58
+which means that the price will pass
+14:00
+through the target profit level.
+14:02
+Scenario three is that we have a full
+14:05
+reversal of the price and break out of
+14:08
+the range on the upside. This still
+14:10
+means that price will pass through the
+14:13
+target profit level. The only scenario
+14:15
+where we actually don't reach the target
+14:17
+profit level is if the price breaks
+14:20
+through on the first touch of the range.
+14:26
+Scenario one is a win. Scenario two is a
+14:28
+win. Scenario three is a win. four is a
+14:32
+loss. But as these back tests shows,
+14:35
+that happens less than 30% of the time.
+14:37
+Now, let me show you how to trade this
+14:40
+live. It's already 100 p.m., so I missed
+14:43
+the uh market open, but I will be back
+Live Trade Example (Meta on Christmas Eve)
+14:45
+tomorrow to trade this together with
+14:47
+you. Good morning, guys. It's about 10
+14:49
+minutes until the market opens. And
+14:50
+today, I'm going to trade this touch and
+14:52
+turn scalper live. And remember the
+14:55
+steps. So, we're first going to what I
+14:57
+call Fibonaccify the first 15minute
+15:00
+opening range candle. And then we're
+15:02
+going to confirm that this candle is a
+15:04
+liquidity candle. And third, we're going
+15:07
+to dial in the perfect trade. If we
+15:10
+don't get this trading opportunity
+15:11
+today, I will come back another day. But
+15:13
+if you're watching this, it means that I
+15:15
+kept it. And spoiler alert, it means
+15:18
+that it's happening today. Okay, so the
+15:20
+market opens in 2 minutes. I'm going to
+15:22
+trade this on Meta today. And let's
+15:25
+start by finding out what the average
+15:26
+true range is. So, I'm going to go to
+15:29
+the daily chart. I'm going to pull up
+15:31
+the average true range indicator. The
+15:33
+average range is 17.75
+15:38
+bucks. Let's uh let's write that down.
+15:44
+And let's go back to the 15minut time
+15:46
+frame.
+15:48
+So, now the market opens in about five
+15:51
+seconds.
+15:52
+And here we go. Okay. So, it's opening
+15:55
+with a gap downwards. Remember, we are
+15:58
+waiting for this candlestick to fully
+16:00
+close before we can confirm that it is a
+16:02
+liquidity candle. And for it to be a
+16:05
+liquidity candle, it has to be 25% or
+16:08
+more of that average true range. So,
+16:10
+while we wait for this 15-minute candle
+16:12
+to close, we could actually already now
+16:14
+calculate that.
+16:16
+So, the average true range was 17.75
+16:19
+bucks.
+16:21
+25% times that is 4 bucks and 44.
+16:28
+So that means that if the candle has a
+16:31
+range that is more than four bucks 444,
+16:34
+it is a liquidity candle. Okay, it's now
+16:38
+5 seconds until this 15-minute candle
+16:40
+closes. The range is exceeding 4.44
+16:43
+bucks. Okay, so the candle closed with a
+16:45
+range of 4.64 64 bucks which means that
+16:48
+it is uh it's it's confirmed that it is
+16:51
+a liquidity candle. Okay. So now let's
+16:53
+take the Fibonacci retracement indicator
+16:56
+to connect the highest price point that
+16:58
+we see and we connect it with the lowest
+17:00
+price point that we see and we extend it
+17:03
+into the future. So the low is at 662
+17:07
+and the high is at 667.
+17:10
+So as you can see here I configured my
+17:12
+own Fibonacci drawing tool. So it also
+17:15
+displays the stop-loss levels. This
+17:17
+makes it even quicker to trade this
+17:18
+strategy and you can most likely do this
+17:21
+in your trading software as well. But if
+17:23
+you want to use the trading software
+17:24
+that I use, which is called Pro Time,
+17:26
+there is a link to that in the
+17:27
+description below. Okay, so this
+17:29
+15-minute liquidity opening range and
+17:31
+the Fibonacci levels that we that we
+17:34
+just drew, they will be of big
+17:36
+significance for the rest of the day. So
+17:37
+now the only remaining thing to do is to
+17:39
+place the limit order. And as this
+17:41
+manipulation candle was positive, we are
+17:43
+looking to make a limit order to go
+17:45
+short at the top of the range. And we do
+17:48
+that on a lower time frame. So we're
+17:50
+changing to the one minute time frame.
+17:52
+It's just better for control and
+17:54
+increased vision. So in per time, you
+17:57
+click here to place a limit order. And
+18:00
+I'm placing the short order here with
+18:02
+target profit at the 61.8 level and the
+18:06
+stop loss up here. And now we just wait.
+18:09
+Remember, we only want to enter the
+18:11
+trade if it's within the 90 minutes of
+18:13
+the market open. Okay, so the price
+18:15
+actually continues up from here. We're
+18:18
+getting closer to the limit order level.
+18:20
+Okay, so we just entered the trade here.
+18:21
+It's now
+18:23
+10:00 a.m. and let's see if it continues
+18:26
+up or if this is a classic touch and
+18:29
+turn. Okay, so the price continues up,
+18:31
+but we're not even halfway to the stop
+18:33
+loss. This is what I want to see. The
+18:35
+price is now turning down again. This is
+18:37
+very promising. Price is going down.
+18:39
+It's going more down now. We just want
+18:41
+it to push a couple of cents more and we
+18:43
+are at the target profit here. We
+Outro
+18:45
+reached the target profit and our trade
+18:46
+is now closed. We are in the money. Time
+18:49
+is now 10:28. Okay guys, that's going to
+18:53
+conclude today's video. I hope you found
+18:55
+some value in this touch and turn
+18:57
+scalper. Let me know how it works out
+18:59
+for you. I have other strategies in my
+19:01
+arsenal as well. Let me know in the
+19:03
+comments and I will make another video
+19:05
+like this. And I would like to end with
+19:08
+one reminder and that is that historic
+19:10
+results are no guarantee for future
+19:12
+results. So even though this strategy
+19:14
+has been proven effective over years and
+19:17
+decades, it might stop working. So
+19:20
+please evaluate it regularly and please
+19:22
+know that this strategy works better in
+19:24
+some stocks and worse in others. So you
+19:27
+need to evaluate it on the stock that
+19:29
+you are trading. Okay guys, take care,
+19:31
+trade well and uh thank you for
+19:33
+watching.
+19:35
+Bye.
+19:44
+Okay.
