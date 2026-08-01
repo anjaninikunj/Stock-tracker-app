@@ -27,8 +27,8 @@ jobs:
 
       - name: Run Nifty Analysis Script
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.NIFTY_TELEGRAM_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
+          NIFTY_TELEGRAM_BOT_TOKEN: ${{ secrets.NIFTY_TELEGRAM_BOT_TOKEN }}
+          NIFTY_TELEGRAM_CHAT_ID: ${{ secrets.NIFTY_TELEGRAM_CHAT_ID }}
         run: python run_collection.py
 
       - name: Commit & Push New Snapshot

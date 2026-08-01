@@ -440,8 +440,8 @@ def run_collection_pipeline():
     # Dispatch Telegram Alert Summary
     import chartink_utils
     import os
-    telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "8890560111:AAFgExgQVny8lspqd8hMZxWGJFRHJxSUDtg")
-    telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "811302410")
+    telegram_token = os.environ.get("NIFTY_TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_BOT_TOKEN", "8890560111:AAFgExgQVny8lspqd8hMZxWGJFRHJxSUDtg")
+    telegram_chat_id = os.environ.get("NIFTY_TELEGRAM_CHAT_ID") or os.environ.get("TELEGRAM_CHAT_ID", "811302410")
 
     tg_lines = [
         "📊 *NIFTY F&O Market Profile Alert*",
