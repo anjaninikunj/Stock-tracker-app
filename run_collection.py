@@ -38,6 +38,14 @@ def run_collection_pipeline():
     print("=" * 60)
 
     client = NSEClient()
+
+    def format_oi(oi_val):
+        if oi_val is None or oi_val < 0:
+            return "N/A"
+        if oi_val >= 100000:
+            lakhs = oi_val / 100000
+            return f"{oi_val:,} ({lakhs:.2f}L)"
+        return f"{oi_val:,}"
     
     # 1. Fetch live quotes (Spot and VIX)
     try:
@@ -191,9 +199,17 @@ def run_collection_pipeline():
                 
             prev_spot = prev_snapshot["spot"]["ltp"]
             prev_pcr = prev_snapshot["pcr"]["oiPCR"]
+            prev_vix = prev_snapshot.get("vix", {}).get("value")
+            prev_totals = prev_snapshot.get("totals", {})
+            prev_total_ce_change_oi = prev_totals.get("totalCEChangeOI", 0)
+            prev_total_pe_change_oi = prev_totals.get("totalPEChangeOI", 0)
+            prev_total_call_oi = prev_totals.get("totalCallOI", 0)
+            prev_total_put_oi = prev_totals.get("totalPutOI", 0)
+            prev_time = prev_snapshot.get("timestamp", "")
             
             spot_change = spot_price - prev_spot
             pcr_change = calculated_pcr - prev_pcr
+            vix_change = (vix_val - prev_vix) if (vix_val is not None and prev_vix is not None) else 0.0
             
             # Sentiment analysis based on OI changes
             if total_pe_change_oi > total_ce_change_oi:
@@ -211,8 +227,15 @@ def run_collection_pipeline():
                 
             comparison = {
                 "previousSnapshot": prev_snapshot_path,
+                "prevTimestamp": prev_time,
+                "prevSpot": prev_spot,
                 "spotChangePoints": round(spot_change, 2),
                 "pcrChange": round(pcr_change, 4),
+                "vixChange": round(vix_change, 2),
+                "prevTotalCallOI": prev_total_call_oi,
+                "prevTotalPutOI": prev_total_put_oi,
+                "prevTotalCEChangeOI": prev_total_ce_change_oi,
+                "prevTotalPEChangeOI": prev_total_pe_change_oi,
                 "sentiment": sentiment
             }
         except Exception as e:
@@ -366,6 +389,8 @@ def run_collection_pipeline():
     print(f"Overall PCR  : {calculated_pcr:<9} ({pcr_bias})")
     print(f"S/R Levels   : Support: {sup_res['strongSupport']} (Strong), {sup_res['weakSupport']} (Weak)")
     print(f"               Resistance: {sup_res['strongResistance']} (Strong), {sup_res['weakResistance']} (Weak)")
+    print(f"Max OI Levels: Max OI PE (Support): {int(support_strike) if support_strike is not None else 'N/A'} ({format_oi(max_put_oi)} contracts)")
+    print(f"               Max OI CE (Resistance): {int(resistance_strike) if resistance_strike is not None else 'N/A'} ({format_oi(max_call_oi)} contracts)")
     print(f"OI Writing   : Put Writing: {market_profile['writingDynamics']['putWriting']} | Call Writing: {market_profile['writingDynamics']['callWriting']}")
     print(f"Market Trend : {trend:<14} (Confidence: {confidence}% | Strength Score: {market_strength}/100)")
     print(f"               Probabilities: Bullish: {trend_probs['bullish']}% | Range-bound: {trend_probs['rangeBound']}% | Bearish: {trend_probs['bearish']}%")
@@ -443,50 +468,124 @@ def run_collection_pipeline():
     telegram_token = os.environ.get("NIFTY_TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_BOT_TOKEN", "8890560111:AAFgExgQVny8lspqd8hMZxWGJFRHJxSUDtg")
     telegram_chat_id = os.environ.get("NIFTY_TELEGRAM_CHAT_ID") or os.environ.get("TELEGRAM_CHAT_ID", "811302410")
 
-    tg_lines = [
-        "📊 *NIFTY F&O Market Profile Alert*",
-        f"Time: {timestamp} (Expiry: {expiry})",
-        "",
-        f"Spot Price   : {spot_price:.2f} ({spot_info['changePoints']:+g} pts, {spot_info['changePercent']:+g}%)",
-        f"Future Basis : {synthetic_future:.2f} ({basis_label}: {basis:+.2f} pts)",
-        f"India VIX    : {vix_display} [Regime: {vix_analysis['regime']}]",
-        f"Overall PCR  : {calculated_pcr} ({pcr_bias})",
-        f"Macro Drivers:",
-        f"  • Brent Crude: ${macro_data['brentCrude']['price']:.2f} ({macro_data['brentCrude']['changePercent']:+g}%)",
-        f"  • USD/INR    : {macro_data['usdInr']['rate']:.4f} ({macro_data['usdInr']['changePercent']:+g}%)",
-        "",
-        "S/R Levels:",
-        f"  • Support: {sup_res['strongSupport']} (Strong), {sup_res['weakSupport']} (Weak)",
-        f"  • Resistance: {sup_res['strongResistance']} (Strong), {sup_res['weakResistance']} (Weak)",
-        "",
-        "Expected Ranges:",
-        f"  • Daily: {expected_ranges['dailyRange']['lower']} - {expected_ranges['dailyRange']['upper']} (±{expected_ranges['dailyRange']['move']} pts)",
-        f"  • Weekly: {expected_ranges['weeklyRange']['lower']} - {expected_ranges['weeklyRange']['upper']} (±{expected_ranges['weeklyRange']['move']} pts)",
-        f"  • High Prob: {expected_ranges['highProbabilityRange']['lower']} - {expected_ranges['highProbabilityRange']['upper']} [ATM Straddle: {expected_ranges['straddlePrice']} pts]",
-        "",
-        f"Trend State: *{trend}* (Confidence: {confidence}% | Strength: {market_strength}/100)",
-        f"Probabilities: Bullish: {trend_probs['bullish']}% | Range-bound: {trend_probs['rangeBound']}% | Bearish: {trend_probs['bearish']}%",
-        "",
-        "Playbook Strategy:"
-    ]
-    if recommended_strat["strategyName"] != "No Trade":
-        lot = 65
-        tg_lines.append(f"  👉 *{recommended_strat['strategyName']}* ({recommended_strat['type']})")
-        for l in recommended_strat["legs"]:
-            tg_lines.append(f"    • {l['type']} {l['strike']} {l['optionType']} (LTP: {l['ltp']})")
-        tg_lines.append(f"  Net Prem: {recommended_strat['netCreditDebit']} pts")
-        tg_lines.append(f"  Max Profit: {recommended_strat['maxProfitPoints']} pts (₹{int(recommended_strat['maxProfitPoints']*lot)})")
-        tg_lines.append(f"  Max Risk: {recommended_strat['maxRiskPoints']} pts (₹{int(recommended_strat['maxRiskPoints']*lot)})")
-        tg_lines.append(f"  Break-even: {recommended_strat['breakeven']}")
-    else:
-        tg_lines.append(f"  👉 *No Trade* ({recommended_strat['description']})")
+    # Detect alert mode based on time in IST (GMT+5:30)
+    from datetime import datetime, timezone, timedelta
+    utc_now = datetime.now(timezone.utc)
+    ist_now = utc_now + timedelta(hours=5, minutes=30)
+    
+    alert_mode = os.environ.get("NIFTY_ALERT_MODE")
+    if alert_mode not in ["intraday", "eod"]:
+        # EOD triggers at/after 3:30 PM (15:30 IST)
+        if ist_now.hour < 15 or (ist_now.hour == 15 and ist_now.minute < 30):
+            alert_mode = "intraday"
+        else:
+            alert_mode = "eod"
+            
+    print(f"[*] Detected Alert Mode: {alert_mode.upper()} (Current IST: {ist_now.strftime('%H:%M:%S')})")
 
-    tg_lines.append("")
-    tg_lines.append("Trend Indicators:")
-    for r in reasons:
-        is_warning = any(w in r.lower() for w in ["resistance", "warning", "elevated", "low", "overcrowded", "discount", "ahead"])
-        icon = "⚠" if is_warning else "✓"
-        tg_lines.append(f"  {icon} {r}")
+    # Calculate 30-minute comparison helper string
+    spot_comp_str = ""
+    if comparison and comparison.get("prevSpot") is not None:
+        prev_spot = comparison["prevSpot"]
+        spot_diff = spot_price - prev_spot
+        direction = "Up" if spot_diff >= 0 else "Down"
+        pct_diff = (spot_diff / prev_spot) * 100
+        prev_time_str = comparison.get("prevTimestamp", "")
+        prev_time_display = prev_time_str.split(" ")[1] if " " in prev_time_str else prev_time_str
+        spot_comp_str = f" | 30m Chg: {direction} {pct_diff:+.2f}%"
+
+    if alert_mode == "intraday":
+        # Short & Focused Alert message during market hours
+        tg_lines = [
+            "📊 *NIFTY F&O Market Update (Intraday)*",
+            f"Time: {timestamp} (Expiry: {expiry})",
+            "",
+            f"Spot Price   : {spot_price:.2f} ({spot_info['changePoints']:+g} pts, {spot_info['changePercent']:+g}%{spot_comp_str})",
+            f"Overall PCR  : {calculated_pcr:.4f}",
+            f"Max OI PE/CE : PE: {int(support_strike) if support_strike is not None else 'N/A'} ({format_oi(max_put_oi)}) | CE: {int(resistance_strike) if resistance_strike is not None else 'N/A'} ({format_oi(max_call_oi)})",
+            "",
+            "S/R Levels:",
+            f"  • Support: {sup_res['strongSupport']} (Strong), {sup_res['weakSupport']} (Weak)",
+            f"  • Resistance: {sup_res['strongResistance']} (Strong), {sup_res['weakResistance']} (Weak)",
+            "",
+            "Playbook Strategy:"
+        ]
+        if recommended_strat["strategyName"] != "No Trade":
+            lot = 65
+            tg_lines.append(f"  👉 *{recommended_strat['strategyName']}* ({recommended_strat['type']})")
+            for l in recommended_strat["legs"]:
+                tg_lines.append(f"    • {l['type']} {l['strike']} {l['optionType']} (LTP: {l['ltp']})")
+            tg_lines.append(f"  Net Prem: {recommended_strat['netCreditDebit']} pts")
+            tg_lines.append(f"  Max Profit: {recommended_strat['maxProfitPoints']} pts (₹{int(recommended_strat['maxProfitPoints']*lot)})")
+            tg_lines.append(f"  Max Risk: {recommended_strat['maxRiskPoints']} pts (₹{int(recommended_strat['maxRiskPoints']*lot)})")
+            tg_lines.append(f"  Break-even: {recommended_strat['breakeven']}")
+        else:
+            tg_lines.append(f"  👉 *No Trade* ({recommended_strat['description']})")
+
+        tg_lines.append("")
+        tg_lines.append("Trend Indicators:")
+        for r in reasons:
+            is_warning = any(w in r.lower() for w in ["resistance", "warning", "elevated", "low", "overcrowded", "discount", "ahead"])
+            icon = "⚠" if is_warning else "✓"
+            tg_lines.append(f"  {icon} {r}")
+
+        tg_lines.append("")
+        tg_lines.append("Expected Ranges:")
+        tg_lines.append(f"  • Daily: {expected_ranges['dailyRange']['lower']} - {expected_ranges['dailyRange']['upper']} (±{expected_ranges['dailyRange']['move']} pts)")
+        tg_lines.append(f"  • Weekly: {expected_ranges['weeklyRange']['lower']} - {expected_ranges['weeklyRange']['upper']} (±{expected_ranges['weeklyRange']['move']} pts)")
+        tg_lines.append(f"  • High Prob: {expected_ranges['highProbabilityRange']['lower']} - {expected_ranges['highProbabilityRange']['upper']} [ATM Straddle: {expected_ranges['straddlePrice']} pts]")
+
+        tg_lines.append("")
+        tg_lines.append(f"Trend State: *{trend}* (Confidence: {confidence}% | Strength: {market_strength}/100)")
+        tg_lines.append(f"Probabilities: Bullish: {trend_probs['bullish']}% | Range-bound: {trend_probs['rangeBound']}% | Bearish: {trend_probs['bearish']}%")
+    else:
+        # Full Detailed Analysis alert after market close
+        tg_lines = [
+            "📊 *NIFTY F&O Market Profile Alert*",
+            f"Time: {timestamp} (Expiry: {expiry})",
+            "",
+            f"Spot Price   : {spot_price:.2f} ({spot_info['changePoints']:+g} pts, {spot_info['changePercent']:+g}%{spot_comp_str})",
+            f"Future Basis : {synthetic_future:.2f} ({basis_label}: {basis:+.2f} pts)",
+            f"India VIX    : {vix_display} [Regime: {vix_analysis['regime']}]",
+            f"Overall PCR  : {calculated_pcr} ({pcr_bias})",
+            f"Macro Drivers:",
+            f"  • Brent Crude: ${macro_data['brentCrude']['price']:.2f} ({macro_data['brentCrude']['changePercent']:+g}%)",
+            f"  • USD/INR    : {macro_data['usdInr']['rate']:.4f} ({macro_data['usdInr']['changePercent']:+g}%)",
+            "",
+            "S/R Levels:",
+            f"  • Support: {sup_res['strongSupport']} (Strong), {sup_res['weakSupport']} (Weak)",
+            f"  • Resistance: {sup_res['strongResistance']} (Strong), {sup_res['weakResistance']} (Weak)",
+            f"  • Max OI PE (Support): {int(support_strike) if support_strike is not None else 'N/A'} ({format_oi(max_put_oi)} contracts)",
+            f"  • Max OI CE (Resistance): {int(resistance_strike) if resistance_strike is not None else 'N/A'} ({format_oi(max_call_oi)} contracts)",
+            "",
+            "Expected Ranges:",
+            f"  • Daily: {expected_ranges['dailyRange']['lower']} - {expected_ranges['dailyRange']['upper']} (±{expected_ranges['dailyRange']['move']} pts)",
+            f"  • Weekly: {expected_ranges['weeklyRange']['lower']} - {expected_ranges['weeklyRange']['upper']} (±{expected_ranges['weeklyRange']['move']} pts)",
+            f"  • High Prob: {expected_ranges['highProbabilityRange']['lower']} - {expected_ranges['highProbabilityRange']['upper']} [ATM Straddle: {expected_ranges['straddlePrice']} pts]",
+            "",
+            f"Trend State: *{trend}* (Confidence: {confidence}% | Strength: {market_strength}/100)",
+            f"Probabilities: Bullish: {trend_probs['bullish']}% | Range-bound: {trend_probs['rangeBound']}% | Bearish: {trend_probs['bearish']}%",
+            "",
+            "Playbook Strategy:"
+        ]
+        if recommended_strat["strategyName"] != "No Trade":
+            lot = 65
+            tg_lines.append(f"  👉 *{recommended_strat['strategyName']}* ({recommended_strat['type']})")
+            for l in recommended_strat["legs"]:
+                tg_lines.append(f"    • {l['type']} {l['strike']} {l['optionType']} (LTP: {l['ltp']})")
+            tg_lines.append(f"  Net Prem: {recommended_strat['netCreditDebit']} pts")
+            tg_lines.append(f"  Max Profit: {recommended_strat['maxProfitPoints']} pts (₹{int(recommended_strat['maxProfitPoints']*lot)})")
+            tg_lines.append(f"  Max Risk: {recommended_strat['maxRiskPoints']} pts (₹{int(recommended_strat['maxRiskPoints']*lot)})")
+            tg_lines.append(f"  Break-even: {recommended_strat['breakeven']}")
+        else:
+            tg_lines.append(f"  👉 *No Trade* ({recommended_strat['description']})")
+
+        tg_lines.append("")
+        tg_lines.append("Trend Indicators:")
+        for r in reasons:
+            is_warning = any(w in r.lower() for w in ["resistance", "warning", "elevated", "low", "overcrowded", "discount", "ahead"])
+            icon = "⚠" if is_warning else "✓"
+            tg_lines.append(f"  {icon} {r}")
 
     tg_msg = "\n".join(tg_lines)
     print("[*] Dispatching options playbook alert to Telegram...")

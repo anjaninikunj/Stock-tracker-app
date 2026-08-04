@@ -224,10 +224,8 @@ def calculate_trend_and_confidence(spot, basis, pcr, vix, ce_change_oi, pe_chang
     # Reason 1: PCR change
     if prev_comp and prev_comp.get("pcrChange") is not None:
         pcr_chg = prev_comp["pcrChange"]
-        if pcr_chg > 0:
-            reasons.append("PCR increased")
-        else:
-            reasons.append("PCR decreased")
+        direction = "Up" if pcr_chg >= 0 else "Down"
+        reasons.append(f"PCR {'increased' if pcr_chg >= 0 else 'decreased'} ({direction} {abs(pcr_chg):.4f})")
     else:
         if pcr >= 1.15:
             reasons.append("PCR in bullish zone")
@@ -235,13 +233,24 @@ def calculate_trend_and_confidence(spot, basis, pcr, vix, ce_change_oi, pe_chang
             reasons.append("PCR in bearish zone")
 
     # Reason 2: Put Writing change
-    if pe_change_oi > 0:
-        reasons.append("Put Writing increased")
+    if prev_comp and prev_comp.get("prevTotalPEChangeOI") is not None:
+        prev_pe_chg = prev_comp["prevTotalPEChangeOI"]
+        pe_chg_diff = pe_change_oi - prev_pe_chg
+        direction = "Up" if pe_chg_diff >= 0 else "Down"
+        lakhs_diff = abs(pe_chg_diff) / 100000
+        reasons.append(f"Put Writing {'increased' if pe_change_oi > 0 else 'decreased'} ({direction} {lakhs_diff:.2f}L)")
     else:
-        reasons.append("Put Writing decreased")
+        if pe_change_oi > 0:
+            reasons.append("Put Writing increased")
+        else:
+            reasons.append("Put Writing decreased")
 
     # Reason 3: VIX change compared to previous session
-    if prev_comp and prev_comp.get("previousSnapshot"):
+    if prev_comp and prev_comp.get("vixChange") is not None:
+        vix_chg = prev_comp["vixChange"]
+        direction = "Up" if vix_chg >= 0 else "Down"
+        reasons.append(f"VIX {'decreased' if vix_chg <= 0 else 'increased'} ({direction} {abs(vix_chg):.2f} pts)")
+    elif prev_comp and prev_comp.get("previousSnapshot"):
         try:
             with open(prev_comp["previousSnapshot"], "r", encoding="utf-8") as f:
                 prev_snap = json.load(f)
@@ -260,10 +269,18 @@ def calculate_trend_and_confidence(spot, basis, pcr, vix, ce_change_oi, pe_chang
 
     # Reason 4: Call OI reduction / Call Unwinding
     unwound_calls = sum(abs(row["CE"]["changeOI"]) for row in normalized_chain if row.get("CE") and row["CE"].get("changeOI", 0) < 0)
-    if unwound_calls > 50000 or ce_change_oi < 0:
-        reasons.append("Call OI reduced")
+    is_reduced = (unwound_calls > 50000 or ce_change_oi < 0)
+    if prev_comp and prev_comp.get("prevTotalCEChangeOI") is not None:
+        prev_ce_chg = prev_comp["prevTotalCEChangeOI"]
+        ce_chg_diff = ce_change_oi - prev_ce_chg
+        direction = "Up" if ce_chg_diff >= 0 else "Down"
+        lakhs_diff = abs(ce_chg_diff) / 100000
+        reasons.append(f"Call OI {'reduced' if is_reduced else 'increased'} ({direction} {lakhs_diff:.2f}L)")
     else:
-        reasons.append("Call OI increased")
+        if is_reduced:
+            reasons.append("Call OI reduced")
+        else:
+            reasons.append("Call OI increased")
 
     # Reason 5: Resistance
     if max_ce_strike:
