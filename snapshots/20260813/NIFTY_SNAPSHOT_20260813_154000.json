@@ -1,0 +1,756 @@
+{
+  "symbol": "NIFTY",
+  "timestamp": "13-Aug-2026 15:40:00",
+  "systemExecutionTime": "13-Aug-2026 10:15:27",
+  "expiry": "18-Aug-2026",
+  "spot": {
+    "ltp": 24395.85,
+    "previousClose": 24435.95,
+    "open": 24431.6,
+    "high": 24431.6,
+    "low": 24311.4,
+    "changePoints": -40.1,
+    "changePercent": -0.16,
+    "syntheticFuture": 24438.7
+  },
+  "vix": {
+    "value": 11.42,
+    "changePoints": -0.27,
+    "changePercent": -2.33
+  },
+  "pcr": {
+    "oiPCR": 0.7772,
+    "calculated": true
+  },
+  "totals": {
+    "totalCallOI": 2289397,
+    "totalPutOI": 1779206,
+    "totalCEChangeOI": 370471,
+    "totalPEChangeOI": 332052
+  },
+  "comparison": {
+    "previousSnapshot": "/home/runner/work/Stock-tracker-app/Stock-tracker-app/snapshots/20260813/NIFTY_SNAPSHOT_20260813_151524.json",
+    "prevTimestamp": "13-Aug-2026 15:15:24",
+    "prevSpot": 24353.35,
+    "spotChangePoints": 42.5,
+    "pcrChange": 0.0075,
+    "vixChange": -0.04,
+    "prevTotalCallOI": 2350784,
+    "prevTotalPutOI": 1809295,
+    "prevTotalCEChangeOI": 431858,
+    "prevTotalPEChangeOI": 362141,
+    "sentiment": "BEARISH (Call Writing capping upside)"
+  },
+  "marketProfile": {
+    "spot": 24395.85,
+    "syntheticFuture": 24438.7,
+    "futureBasis": 42.85,
+    "atmStrike": 24400,
+    "expectedRanges": {
+      "dailyRange": {
+        "lower": 24250.02,
+        "upper": 24541.68,
+        "move": 145.83
+      },
+      "weeklyRange": {
+        "lower": 24009.5,
+        "upper": 24782.2,
+        "move": 386.35
+      },
+      "highProbabilityRange": {
+        "lower": 24300,
+        "upper": 24500
+      },
+      "lowProbabilityRange": {
+        "lower": 23950,
+        "upper": 24850
+      },
+      "straddlePrice": 205.4
+    },
+    "pcr": {
+      "value": 0.7772,
+      "regime": "PCR Medium-Low",
+      "bias": "Bearish Bias"
+    },
+    "vix": {
+      "value": 11.42,
+      "regime": "Low",
+      "expectedDailyMove": 145.83,
+      "expectedWeeklyMove": 386.35
+    },
+    "support": {
+      "strongest": 24000,
+      "weak": 24300
+    },
+    "resistance": {
+      "strongest": 24800,
+      "weak": 24500
+    },
+    "writingDynamics": {
+      "putWriting": "Mixed",
+      "callWriting": "Increasing"
+    },
+    "marketTrend": {
+      "trend": "Range-bound",
+      "confidencePercent": 50,
+      "strengthScore": 60,
+      "reasons": [
+        "PCR increased (Up 0.0075)",
+        "Put Writing increased (Down 0.30L)",
+        "VIX decreased (Down 0.04 pts)",
+        "Call OI increased (Down 0.61L)",
+        "Resistance at 24800"
+      ],
+      "strengthBreakdown": {
+        "pcr": 9,
+        "putWriting": 5,
+        "callUnwinding": 1,
+        "basis": 10,
+        "vix": 15,
+        "priceStructure": 10,
+        "greeks": 10,
+        "total": 60
+      },
+      "trendProbabilities": {
+        "bullish": 23,
+        "rangeBound": 42,
+        "bearish": 35
+      }
+    },
+    "macro": {
+      "brentCrude": {
+        "price": 80.45,
+        "changePoints": -0.32,
+        "changePercent": -0.4
+      },
+      "usdInr": {
+        "rate": 95.412,
+        "changePoints": 11.732,
+        "changePercent": 14.02
+      }
+    }
+  },
+  "macro": {
+    "brentCrude": {
+      "price": 80.45,
+      "changePoints": -0.32,
+      "changePercent": -0.4
+    },
+    "usdInr": {
+      "rate": 95.412,
+      "changePoints": 11.732,
+      "changePercent": 14.02
+    }
+  },
+  "recommendedStrategy": {
+    "strategyName": "Iron Condor",
+    "type": "Credit",
+    "legs": [
+      {
+        "type": "Sell",
+        "optionType": "CE",
+        "strike": 24800,
+        "ltp": 9.5
+      },
+      {
+        "type": "Buy",
+        "optionType": "CE",
+        "strike": 24900,
+        "ltp": 5.0
+      },
+      {
+        "type": "Sell",
+        "optionType": "PE",
+        "strike": 24000,
+        "ltp": 7.4
+      },
+      {
+        "type": "Buy",
+        "optionType": "PE",
+        "strike": 23900,
+        "ltp": 4.15
+      }
+    ],
+    "netCreditDebit": 7.75,
+    "maxProfitPoints": 7.75,
+    "maxRiskPoints": 92.25,
+    "breakeven": 0.0,
+    "description": "Neutral credit strategy. Maximum profit realized if Nifty remains between 24000 and 24800.",
+    "reasons": [
+      "Range-bound/Neutral Trend",
+      "Low VIX (Calm volatility environment)",
+      "S/R boundaries are stable",
+      "Time decay (Theta) favored on both sides"
+    ]
+  },
+  "atmStrike": 24400,
+  "optionChain": [
+    {
+      "strike": 23900,
+      "CE": {
+        "ltp": 540.85,
+        "oi": 2808,
+        "changeOI": -753,
+        "volume": 3570,
+        "iv": 12.99,
+        "delta": 0.9299,
+        "gamma": 0.000362,
+        "theta": -5.0005,
+        "vega": 3.8442,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 4.15,
+        "oi": 78421,
+        "changeOI": 7646,
+        "volume": 496528,
+        "iv": 10.38,
+        "delta": -0.0327,
+        "gamma": 0.000246,
+        "theta": -2.1728,
+        "vega": 2.0904,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 23950,
+      "CE": {
+        "ltp": 492.15,
+        "oi": 503,
+        "changeOI": -6,
+        "volume": 1623,
+        "iv": 12.32,
+        "delta": 0.9206,
+        "gamma": 0.00042,
+        "theta": -5.2134,
+        "vega": 4.2258,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 5.7,
+        "oi": 26639,
+        "changeOI": 4686,
+        "volume": 279482,
+        "iv": 10.16,
+        "delta": -0.044,
+        "gamma": 0.000321,
+        "theta": -2.7082,
+        "vega": 2.6618,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24000,
+      "CE": {
+        "ltp": 443.85,
+        "oi": 7189,
+        "changeOI": -32,
+        "volume": 42418,
+        "iv": 11.68,
+        "delta": 0.9087,
+        "gamma": 0.000492,
+        "theta": -5.487,
+        "vega": 4.6912,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 7.4,
+        "oi": 149436,
+        "changeOI": 31082,
+        "volume": 1001486,
+        "iv": 9.82,
+        "delta": -0.0567,
+        "gamma": 0.000406,
+        "theta": -3.2039,
+        "vega": 3.2581,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24050,
+      "CE": {
+        "ltp": 397.15,
+        "oi": 1154,
+        "changeOI": -24,
+        "volume": 8352,
+        "iv": 11.26,
+        "delta": 0.8895,
+        "gamma": 0.000586,
+        "theta": -6.0792,
+        "vega": 5.3914,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 9.85,
+        "oi": 24742,
+        "changeOI": 6726,
+        "volume": 383265,
+        "iv": 9.53,
+        "delta": -0.0744,
+        "gamma": 0.000516,
+        "theta": -3.8366,
+        "vega": 4.0202,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24100,
+      "CE": {
+        "ltp": 350.3,
+        "oi": 4102,
+        "changeOI": -837,
+        "volume": 52995,
+        "iv": 10.69,
+        "delta": 0.8692,
+        "gamma": 0.000695,
+        "theta": -6.5015,
+        "vega": 6.0734,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 13.8,
+        "oi": 73000,
+        "changeOI": 22190,
+        "volume": 720082,
+        "iv": 9.37,
+        "delta": -0.1005,
+        "gamma": 0.000657,
+        "theta": -4.7226,
+        "vega": 5.0331,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24150,
+      "CE": {
+        "ltp": 306.0,
+        "oi": 3062,
+        "changeOI": 496,
+        "volume": 38836,
+        "iv": 10.37,
+        "delta": 0.8379,
+        "gamma": 0.000828,
+        "theta": -7.2839,
+        "vega": 7.0142,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 18.5,
+        "oi": 43314,
+        "changeOI": 20565,
+        "volume": 526446,
+        "iv": 9.11,
+        "delta": -0.1312,
+        "gamma": 0.000818,
+        "theta": -5.552,
+        "vega": 6.086,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24200,
+      "CE": {
+        "ltp": 263.95,
+        "oi": 14938,
+        "changeOI": 2080,
+        "volume": 263196,
+        "iv": 10.14,
+        "delta": 0.7977,
+        "gamma": 0.000972,
+        "theta": -8.1807,
+        "vega": 8.0566,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 26.35,
+        "oi": 96933,
+        "changeOI": 24540,
+        "volume": 1042183,
+        "iv": 9.06,
+        "delta": -0.1758,
+        "gamma": 0.000998,
+        "theta": -6.7036,
+        "vega": 7.3889,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24250,
+      "CE": {
+        "ltp": 224.25,
+        "oi": 6253,
+        "changeOI": 906,
+        "volume": 274917,
+        "iv": 9.94,
+        "delta": 0.7494,
+        "gamma": 0.00112,
+        "theta": -9.0531,
+        "vega": 9.095,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 35.7,
+        "oi": 44884,
+        "changeOI": 6923,
+        "volume": 810886,
+        "iv": 8.9,
+        "delta": -0.2267,
+        "gamma": 0.001184,
+        "theta": -7.6722,
+        "vega": 8.6085,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24300,
+      "CE": {
+        "ltp": 185.3,
+        "oi": 38760,
+        "changeOI": 2013,
+        "volume": 1226694,
+        "iv": 9.57,
+        "delta": 0.6964,
+        "gamma": 0.001278,
+        "theta": -9.5753,
+        "vega": 9.9916,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 48.5,
+        "oi": 120455,
+        "changeOI": 33656,
+        "volume": 2216367,
+        "iv": 8.81,
+        "delta": -0.2886,
+        "gamma": 0.001356,
+        "theta": -8.6121,
+        "vega": 9.7618,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24350,
+      "CE": {
+        "ltp": 152.2,
+        "oi": 36435,
+        "changeOI": 13834,
+        "volume": 1531176,
+        "iv": 9.5,
+        "delta": 0.6304,
+        "gamma": 0.00139,
+        "theta": -10.2636,
+        "vega": 10.7888,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 64.45,
+        "oi": 69284,
+        "changeOI": 33789,
+        "volume": 2315828,
+        "iv": 8.71,
+        "delta": -0.3587,
+        "gamma": 0.001501,
+        "theta": -9.3151,
+        "vega": 10.6799,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24400,
+      "CE": {
+        "ltp": 122.05,
+        "oi": 112478,
+        "changeOI": 19546,
+        "volume": 2343939,
+        "iv": 9.38,
+        "delta": 0.5596,
+        "gamma": 0.001471,
+        "theta": -10.5913,
+        "vega": 11.2757,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 83.35,
+        "oi": 100777,
+        "changeOI": 26169,
+        "volume": 2485445,
+        "iv": 8.54,
+        "delta": -0.435,
+        "gamma": 0.001613,
+        "theta": -9.6221,
+        "vega": 11.2515,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24450,
+      "CE": {
+        "ltp": 95.75,
+        "oi": 67084,
+        "changeOI": 18433,
+        "volume": 1133604,
+        "iv": 9.28,
+        "delta": 0.4852,
+        "gamma": 0.001503,
+        "theta": -10.5895,
+        "vega": 11.3953,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 107.1,
+        "oi": 41980,
+        "changeOI": 19665,
+        "volume": 906800,
+        "iv": 8.46,
+        "delta": -0.5167,
+        "gamma": 0.001648,
+        "theta": -9.6521,
+        "vega": 11.3932,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24500,
+      "CE": {
+        "ltp": 72.95,
+        "oi": 161337,
+        "changeOI": 23803,
+        "volume": 1726155,
+        "iv": 9.16,
+        "delta": 0.4096,
+        "gamma": 0.001484,
+        "theta": -10.1903,
+        "vega": 11.1094,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 134.65,
+        "oi": 67608,
+        "changeOI": 20192,
+        "volume": 904874,
+        "iv": 8.35,
+        "delta": -0.5993,
+        "gamma": 0.001619,
+        "theta": -9.2377,
+        "vega": 11.0478,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24550,
+      "CE": {
+        "ltp": 54.8,
+        "oi": 55448,
+        "changeOI": 11429,
+        "volume": 697474,
+        "iv": 9.12,
+        "delta": 0.337,
+        "gamma": 0.001401,
+        "theta": -9.5323,
+        "vega": 10.4376,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 166.2,
+        "oi": 10785,
+        "changeOI": 3522,
+        "volume": 220002,
+        "iv": 8.22,
+        "delta": -0.68,
+        "gamma": 0.001522,
+        "theta": -8.4135,
+        "vega": 10.2212,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24600,
+      "CE": {
+        "ltp": 39.2,
+        "oi": 139123,
+        "changeOI": 30222,
+        "volume": 1074840,
+        "iv": 8.99,
+        "delta": 0.2675,
+        "gamma": 0.001281,
+        "theta": -8.4686,
+        "vega": 9.4069,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 200.7,
+        "oi": 29266,
+        "changeOI": 3663,
+        "volume": 249691,
+        "iv": 7.98,
+        "delta": -0.7581,
+        "gamma": 0.001369,
+        "theta": -7.1315,
+        "vega": 8.9242,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24650,
+      "CE": {
+        "ltp": 28.7,
+        "oi": 50313,
+        "changeOI": 11877,
+        "volume": 541435,
+        "iv": 9.06,
+        "delta": 0.2098,
+        "gamma": 0.001112,
+        "theta": -7.4695,
+        "vega": 8.2331,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 238.85,
+        "oi": 6022,
+        "changeOI": 900,
+        "volume": 43818,
+        "iv": 7.7,
+        "delta": -0.8293,
+        "gamma": 0.001153,
+        "theta": -5.5919,
+        "vega": 7.2521,
+        "buildup": "Short Build-up"
+      }
+    },
+    {
+      "strike": 24700,
+      "CE": {
+        "ltp": 20.2,
+        "oi": 116881,
+        "changeOI": 26484,
+        "volume": 840453,
+        "iv": 9.08,
+        "delta": 0.1596,
+        "gamma": 0.000936,
+        "theta": -6.3131,
+        "vega": 6.9431,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 281.95,
+        "oi": 11839,
+        "changeOI": -990,
+        "volume": 60821,
+        "iv": 7.66,
+        "delta": -0.8815,
+        "gamma": 0.000905,
+        "theta": -4.3467,
+        "vega": 5.6667,
+        "buildup": "Long Unwinding"
+      }
+    },
+    {
+      "strike": 24750,
+      "CE": {
+        "ltp": 13.85,
+        "oi": 50245,
+        "changeOI": 18353,
+        "volume": 489792,
+        "iv": 9.08,
+        "delta": 0.1177,
+        "gamma": 0.00076,
+        "theta": -5.1285,
+        "vega": 5.6403,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 325.0,
+        "oi": 1831,
+        "changeOI": -100,
+        "volume": 10433,
+        "iv": 6.99,
+        "delta": -0.9387,
+        "gamma": 0.000606,
+        "theta": -2.423,
+        "vega": 3.4615,
+        "buildup": "Long Unwinding"
+      }
+    },
+    {
+      "strike": 24800,
+      "CE": {
+        "ltp": 9.5,
+        "oi": 166187,
+        "changeOI": 80649,
+        "volume": 905114,
+        "iv": 9.15,
+        "delta": 0.086,
+        "gamma": 0.0006,
+        "theta": -4.1103,
+        "vega": 4.4859,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 369.5,
+        "oi": 6768,
+        "changeOI": -139,
+        "volume": 21145,
+        "iv": null,
+        "delta": -0.8626,
+        "gamma": 0.000673,
+        "theta": -7.1833,
+        "vega": 6.2814,
+        "buildup": "Long Unwinding"
+      }
+    },
+    {
+      "strike": 24850,
+      "CE": {
+        "ltp": 6.5,
+        "oi": 48076,
+        "changeOI": -864,
+        "volume": 397067,
+        "iv": 9.24,
+        "delta": 0.0619,
+        "gamma": 0.000462,
+        "theta": -3.2287,
+        "vega": 3.4894,
+        "buildup": "Long Unwinding"
+      },
+      "PE": {
+        "ltp": 416.35,
+        "oi": 451,
+        "changeOI": -142,
+        "volume": 2681,
+        "iv": null,
+        "delta": -0.893,
+        "gamma": 0.000565,
+        "theta": -6.0238,
+        "vega": 5.2674,
+        "buildup": "Long Unwinding"
+      }
+    },
+    {
+      "strike": 24900,
+      "CE": {
+        "ltp": 5.0,
+        "oi": 90082,
+        "changeOI": 18237,
+        "volume": 512587,
+        "iv": 9.57,
+        "delta": 0.0479,
+        "gamma": 0.000365,
+        "theta": -2.7322,
+        "vega": 2.851,
+        "buildup": "Short Build-up"
+      },
+      "PE": {
+        "ltp": 464.55,
+        "oi": 5018,
+        "changeOI": -436,
+        "volume": 3400,
+        "iv": null,
+        "delta": -0.9182,
+        "gamma": 0.000463,
+        "theta": -4.9399,
+        "vega": 4.3197,
+        "buildup": "Long Unwinding"
+      }
+    }
+  ]
+}
