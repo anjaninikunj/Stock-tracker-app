@@ -578,7 +578,7 @@ Week Start,Strategy,Date Added,Stock Symbol,Entry Price,Weekend Price (Friday),S
 31-August-2026,Stock mind27- EveryDay Call Options look up,31-August-2026,BEL,412.6,-,OUT (Not in Strategy)
 31-August-2026,Stock mind27- EveryDay Call Options look up,31-August-2026,ICICIBANK,1443.3,-,OUT (Not in Strategy)
 31-August-2026,Stock mind27- EveryDay Call Options look up,01-September-2026,MOTHERSON,168.05,-,OUT (Not in Strategy)
-31-August-2026,Codex Milega Hilega Weekly,01-September-2026,SURYALAXMI,64.99,-,OUT (Not in Strategy)
+31-August-2026,Codex Milega Hilega Weekly,01-September-2026,SURYALAXMI,64.99,-,IN (in strategy still)
 31-August-2026,Codex Milega Hilega Weekly,01-September-2026,RELIGARE,253.03,-,IN (in strategy still)
 31-August-2026,Stock mind27- EveryDay Call Options look up,01-September-2026,KOTAKBANK,428.1,-,OUT (Not in Strategy)
 31-August-2026,Stock mind27- EveryDay Call Options look up,01-September-2026,SAIL,199.32,-,OUT (Not in Strategy)
@@ -595,3 +595,4 @@ Week Start,Strategy,Date Added,Stock Symbol,Entry Price,Weekend Price (Friday),S
 31-August-2026,Stock mind27- EveryDay Call Options look up,02-September-2026,OIL,498,-,OUT (Not in Strategy)
 31-August-2026,Stock mind27- EveryDay Call Options look up,02-September-2026,UNIONBANK,185.79,-,OUT (Not in Strategy)
 31-August-2026,Stock mind27- EveryDay Call Options look up,03-September-2026,RBLBANK,397.9,-,IN (in strategy still)
+31-August-2026,Codex Milega Hilega Weekly,03-September-2026,HIKAL,225.44,-,IN (in strategy still)
