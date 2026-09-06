@@ -1,7 +1,7 @@
 {
   "symbol": "NIFTY",
   "timestamp": "04-Sep-2026 15:40:00",
-  "systemExecutionTime": "05-Sep-2026 22:30:33",
+  "systemExecutionTime": "06-Sep-2026 22:30:31",
   "expiry": "08-Sep-2026",
   "spot": {
     "ltp": 23897.7,
@@ -125,9 +125,9 @@
         "changePercent": -0.4
       },
       "usdInr": {
-        "rate": 94.5176,
-        "changePoints": 10.8376,
-        "changePercent": 12.95
+        "rate": 94.5116,
+        "changePoints": 10.8316,
+        "changePercent": 12.94
       }
     }
   },
@@ -138,9 +138,9 @@
       "changePercent": -0.4
     },
     "usdInr": {
-      "rate": 94.5176,
-      "changePoints": 10.8376,
-      "changePercent": 12.95
+      "rate": 94.5116,
+      "changePoints": 10.8316,
+      "changePercent": 12.94
     }
   },
   "recommendedStrategy": {
